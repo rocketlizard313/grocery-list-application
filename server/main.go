@@ -7,6 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type GroceryList struct {
+	ID           int      `json:"id"`
+	GroceryItems []string `json:"groceryItems"`
+}
+
 func main() {
 	// Create a Gin router with default middleware (logger and recovery)
 	r := gin.Default()
@@ -26,11 +31,63 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.GET("/", func(c *gin.Context) {
+
+	r.GET("/grocery-list", func(c *gin.Context) {
+
+		id := c.Query("id")
+
+		res := GroceryList{}
+		switch id {
+		case "1":
+			res = GroceryList{
+				ID: 1,
+				GroceryItems: []string{
+					"Avocados",
+					"Ground Beef",
+					"Spinach",
+					"Blueberries",
+					"Coffee",
+					"Almond Milk",
+					"Tortillas",
+					"Black Beans",
+					"Salsa",
+					"Shredded Cheese",
+					"Frozen Broccoli",
+					"Orange Juice",
+					"Peanut Butter",
+					"Crackers",
+					"Ice Cream",
+				},
+			}
+
+		case "2":
+			res = GroceryList{
+				ID: 2,
+				GroceryItems: []string{
+					"Bread",
+					"Milk",
+					"Eggs",
+					"Butter",
+					"Cheese",
+					"Chicken Breast",
+					"Rice",
+					"Pasta",
+					"Tomatoes",
+					"Onions",
+					"Garlic",
+					"Bell Peppers",
+					"Bananas",
+					"Apples",
+					"Yogurt",
+				},
+			}
+
+		default:
+			res = GroceryList{}
+		}
+
 		// Return JSON response
-		c.JSON(http.StatusOK, gin.H{
-			"message": "main",
-		})
+		c.JSON(http.StatusOK, res)
 	})
 
 	// Start server on port 8080 (default)

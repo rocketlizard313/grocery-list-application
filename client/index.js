@@ -1,5 +1,5 @@
 async function getData() {
-  const url = "http://localhost:8080";
+  const url = "http://localhost:8080/grocery-list?id=1";
   try {
     const response = await fetch(url,{method:"GET"});
     if (!response.ok) {
